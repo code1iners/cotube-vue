@@ -7,6 +7,7 @@ module.exports = {
       alias: {
         "@": path.join(__dirname, "src/"),
         "@api": path.join(__dirname, "src/api/"),
+        "@libs": path.join(__dirname, "src/libs/"),
       },
     },
   },
