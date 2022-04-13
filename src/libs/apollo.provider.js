@@ -6,6 +6,9 @@ import {
 
 const httpLink = createHttpLink({
   uri: process.env.VUE_APP_USER_API_URI,
+  headers: {
+    authorization: sessionStorage.getItem("ACCESS_TOKEN"),
+  },
 });
 
 const cache = new InMemoryCache();
