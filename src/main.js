@@ -5,6 +5,8 @@ import store from "./store";
 import { DefaultApolloClient } from "@vue/apollo-composable";
 import { apolloClient } from "@libs/apollo.provider";
 import { createI18n } from "vue-i18n";
+// import axios from "axios";
+// import VueAxios from "vue-axios";
 
 const i18n = createI18n({
   locale: "ko", // set locale
@@ -33,7 +35,9 @@ const app = createApp({
 });
 
 app.use(store).use(router);
-
+// app.use(VueAxios, axios);
 app.use(i18n);
 
 app.mount("#app");
+
+// app.config.globalProperties.axios = axios;

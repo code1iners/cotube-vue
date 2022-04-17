@@ -1,8 +1,25 @@
 <template>
   <div id="nav">
-    <!-- <router-link to="/">HOME</router-link> -->
+    <HeaderVue></HeaderVue>
+    <router-view />
   </div>
-  <router-view />
 </template>
 
-<style></style>
+<script>
+import HeaderVue from "./components/header.vue";
+export default {
+  name: "OneProjectApp",
+
+  data() {
+    return {};
+  },
+  component: {
+    HeaderVue,
+  },
+  mounted() {},
+
+  methods: {},
+};
+</script>
+
+<style lang="scss" scoped></style>

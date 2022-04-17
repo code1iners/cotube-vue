@@ -1,29 +1,22 @@
 <template>
-    <div>
-        
-    </div>
+  <div class="menu">
+    <div>COTUBE</div>
+    <div>로그인 가입</div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'OneProjectHeader',
+  name: "OneProjectHeader",
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
