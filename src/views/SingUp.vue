@@ -26,6 +26,9 @@
         </div>
 
         <input type="submit" value="회원가입" class="btn" />
+        <router-link to="/">
+          <input type="button" value="로그인" class="btn2"
+        /></router-link>
       </div>
     </form>
   </div>
@@ -120,5 +123,16 @@ export default {
   cursor: pointer;
   height: 50px;
   font-weight: 800;
+}
+.btn2 {
+  background-color: black;
+  color: white;
+  border: 0;
+  margin-top: 20px;
+  cursor: pointer;
+  height: 50px;
+  font-weight: 800;
+  width: 100%;
+  height: 50px;
 }
 </style>

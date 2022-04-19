@@ -1,6 +1,6 @@
 <template>
   <div class="videobox">
-    <form action="" id="frm" @submit.prevent="loginVue">
+    <form action="" id="frm" @submit.prevent="loginVue" @keyup.enter="loginVue">
       <div class="loginbox">
         <p class="title">로그인</p>
         <label class="check" v-text="text"></label>

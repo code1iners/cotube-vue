@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
 import Home from "@/views/Home.vue";
 import SingUp from "@/views/SingUp.vue";
+import Video from "@/views/Video.vue";
 const routes = [
   {
     path: "/",
@@ -9,14 +10,19 @@ const routes = [
     component: Login,
   },
   {
-    path: "/Home",
+    path: "/home",
     name: "Home",
     component: Home,
   },
   {
-    path: "/SingUp",
+    path: "/singup",
     name: "SingUp",
     component: SingUp,
+  },
+  {
+    path: "/video/:id",
+    name: "video",
+    component: Video,
   },
   // {
   //   path: "/about",
