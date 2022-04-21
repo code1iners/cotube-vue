@@ -12,15 +12,13 @@
           </div>
           <div class="bottombox">
             <div class="imgbox">
-              <img :src="arr.snippet.thumbnails.default.url" />
+              <img
+                :src="`https://img.youtube.com/vi/${arr.id.videoId}/mqdefault.jpg`"
+              />
             </div>
             <div class="titlebox">
               <p class="bigtitle">
-                {{
-                  arr.snippet.title.length > 45
-                    ? arr.snippet.title.substr(0, 45) + "..."
-                    : arr.snippet.title
-                }}
+                {{ arr.snippet.title }}
               </p>
               <p class="title">{{ arr.snippet.channelTitle }}</p>
             </div>
@@ -53,10 +51,10 @@ export default {
   methods: {
     getMovieList() {
       let url =
-        "https://www.googleapis.com/youtube/v3/search?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=id,snippet&q=앨리&type=video&maxResults=2";
+        "https://www.googleapis.com/youtube/v3/search?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=id,snippet&q=오킹&type=video&maxResults=5";
       this.video_val === ""
         ? url
-        : (url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=id,snippet&q=${this.video_val}&type=video&maxResults=2`);
+        : (url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=id,snippet&q=${this.video_val}&type=video&maxResults=5 `);
       axios
         .get(url)
         .then((response) => {
@@ -67,9 +65,6 @@ export default {
           console.log(error);
         });
     },
-    // go(link) {
-    //   location.href = "https://www.youtube.com/watch?v=" + link;
-    // },
   },
 };
 </script>
@@ -97,10 +92,9 @@ export default {
   box-sizing: border-box;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
 }
 .videomini {
-  width: 24%;
+  width: 20.9%;
   height: 300px;
   display: flex;
   flex-flow: column nowrap;
@@ -109,6 +103,12 @@ export default {
 .bigtitle {
   font-size: 12px;
   font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .topbox {
   width: 100%;
@@ -133,7 +133,7 @@ export default {
   color: #ccc;
 }
 .imgbox {
-  width: 100px;
+  width: 40px;
   border-radius: 100px;
   overflow: hidden;
   position: relative;
@@ -141,7 +141,8 @@ export default {
 .imgbox > img {
   left: 0;
   right: 0;
-  top: 20px;
+  top: 0;
+  bottom: 0;
   margin: auto;
   position: absolute;
   width: 30px;
