@@ -28,12 +28,16 @@
         <ul class="comment_ul">
           <li v-for="text in comment" :key="text">
             <div>
-              <img
-                class="comment_img"
-                :src="
-                  text.snippet.topLevelComment.snippet.authorProfileImageUrl
-                "
-              />
+              <router-link
+                :to="`/user/${text.snippet.topLevelComment.snippet.authorChannelId.value}`"
+              >
+                <img
+                  class="comment_img"
+                  :src="
+                    text.snippet.topLevelComment.snippet.authorProfileImageUrl
+                  "
+                />
+              </router-link>
             </div>
             <ol>
               <li
@@ -63,7 +67,7 @@ export default {
       .then(({ data }) => {
         // console.log(data.items[0].snippet, "response");
         // console.log(data, "response");
-
+        console.log(data.items);
         this.comment = data.items;
         // console.log(data.items[0].snippet.topLevelComment.snippet);
       })

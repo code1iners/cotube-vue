@@ -1,7 +1,7 @@
 <template>
-  <div class="menu">
-    <div>COTUBE</div>
-    <div>로그인 가입</div>
+  <div class="textbox">
+    <!-- <input type="text" v-model="video_val" @keyup.enter="getMovieList" /> -->
+    <input type="text" />
   </div>
 </template>
 
@@ -19,4 +19,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.textbox {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.textbox > input {
+  width: 35%;
+  height: 35px;
+}
+</style>

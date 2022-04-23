@@ -1,87 +1,35 @@
 <template>
   <div class="homeVue">
-    <div class="textbox">
+    <!-- <div class="textbox">
       <input type="text" v-model="video_val" @keyup.enter="getMovieList" />
-    </div>
+    </div> -->
     <!-- <router-link to="/video/hi"> </router-link> -->
-    <div class="vidie_box">
-      <div class="videomini" v-for="arr in this.movieList" :key="arr">
-        <router-link :to="`/video/${arr.id.videoId}`">
-          <div class="topbox">
-            <img :src="arr.snippet.thumbnails.medium.url" />
-          </div>
-          <div class="bottombox">
-            <div class="imgbox">
-              <img
-                :src="`https://img.youtube.com/vi/${arr.id.videoId}/mqdefault.jpg`"
-              />
-            </div>
-            <div class="titlebox">
-              <p class="bigtitle">
-                {{ arr.snippet.title }}
-              </p>
-              <p class="title">{{ arr.snippet.channelTitle }}</p>
-            </div>
-          </div>
-        </router-link>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Home",
   created() {
-    if (sessionStorage.getItem("ACCESS_TOKEN") === "") {
+    if (sessionStorage.getItem("ACCESS_TOKEN") === null) {
       this.$router.push("/");
     }
   },
   data() {
     return {
-      movieList: [],
-      video_val: "",
+      // movieList: [],
+      // video_val: "",
     };
   },
   computed: {},
   mounted() {
-    this.getMovieList();
+    // this.getMovieList();
   },
-  methods: {
-    getMovieList() {
-      let url =
-        "https://www.googleapis.com/youtube/v3/search?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=id,snippet&q=오킹&type=video&maxResults=5";
-      this.video_val === ""
-        ? url
-        : (url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=id,snippet&q=${this.video_val}&type=video&maxResults=5 `);
-      axios
-        .get(url)
-        .then((response) => {
-          this.movieList = response.data.items;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style scoped>
-.textbox {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-}
-.textbox > input {
-  width: 35%;
-  height: 35px;
-}
 .homeVue {
   padding: 30px;
 }

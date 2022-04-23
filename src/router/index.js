@@ -3,6 +3,7 @@ import Login from "@/views/Login.vue";
 import Home from "@/views/Home.vue";
 import SingUp from "@/views/SingUp.vue";
 import Video from "@/views/Video.vue";
+import User from "@/views/UserInfo.vue";
 const routes = [
   {
     path: "/",
@@ -23,6 +24,11 @@ const routes = [
     path: "/video/:id",
     name: "video",
     component: Video,
+  },
+  {
+    path: "/user/:id",
+    name: "user",
+    component: User,
   },
   // {
   //   path: "/about",
