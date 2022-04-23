@@ -1,9 +1,8 @@
 <template>
   <div class="videobox">
-    <div class="framebox">
+    <div class="framebox" style="width: 100%">
       <iframe
-        width="943"
-        height="533"
+        style="width: 100%; aspect-ratio: 16/9"
         :src="`https://www.youtube.com/embed/${this.$route.params.id}`"
         title="YouTube video player"
         frameborder="0"
