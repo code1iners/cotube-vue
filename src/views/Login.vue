@@ -81,7 +81,7 @@ export default {
       if (!ok) return alert("아이디 정보가 없습니다");
 
       sessionStorage.setItem("ACCESS_TOKEN", token);
-      this.$router.push("Home");
+      this.$router.replace("Home");
     },
   },
 };

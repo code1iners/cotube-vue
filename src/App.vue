@@ -1,21 +1,25 @@
 <template>
   <div id="nav">
-    <HeaderVue></HeaderVue>
+    <Header v-if="$route.name !== 'login'" />
     <router-view />
   </div>
 </template>
 
 <script>
-import HeaderVue from "./components/header.vue";
+import Header from "@/components/Header.vue";
 export default {
   name: "OneProjectApp",
-
+  created() {
+    if (sessionStorage.getItem("ACCESS_TOKEN") === null) {
+      this.$router.push("/");
+    }
+  },
   data() {
-    return {};
+    return {
+      isStatusOn: true,
+    };
   },
-  component: {
-    HeaderVue,
-  },
+  components: { Header },
   mounted() {},
 
   methods: {},

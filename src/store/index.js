@@ -18,7 +18,7 @@ export default createStore({
       state.user = data;
     },
     SET_home(state, data) {
-      state.home = data;
+      (state.home = data).then(this.$router.push("/home"));
     },
   }, //methods
   actions: {
@@ -32,8 +32,8 @@ export default createStore({
         });
     },
     FETCH_HOME_VIEW({ commit }, id) {
-      fetchHomeView(id).then((data) => {
-        commit("SET_home", data);
+      fetchHomeView(id).then(({ data: { items } }) => {
+        commit("SET_home", items);
       });
     },
   }, //비동기 methods

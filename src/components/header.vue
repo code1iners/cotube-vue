@@ -1,7 +1,12 @@
 <template>
   <div class="textbox">
-    <!-- <input type="text" v-model="video_val" @keyup.enter="getMovieList" /> -->
-    <input type="text" />
+    <ul class="menubox">
+      <li @click="logout">로그아웃</li>
+    </ul>
+    <div class="inputbox">
+      <input type="text" v-model="video_val" @keyup.enter="search" />
+      <input type="button" class="btn" value="검색" @click="search" />
+    </div>
   </div>
 </template>
 
@@ -10,26 +15,73 @@ export default {
   name: "OneProjectHeader",
 
   data() {
-    return {};
+    return {
+      video_val: "",
+    };
   },
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    logout() {
+      sessionStorage.removeItem("ACCESS_TOKEN");
+      this.$router.push("/");
+    },
+    search() {
+      this.$router.push("/home");
+      this.$store.dispatch(`FETCH_HOME_VIEW`, this.video_val);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .textbox {
   width: 100%;
-  height: 50px;
+  padding: 30px;
+  box-sizing: border-box;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 }
-.textbox > input {
+.menubox {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 10px;
+}
+.menubox > li {
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: 800;
+  font-size: 14px;
+}
+.inputbox {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+input {
   width: 35%;
-  height: 35px;
+  height: 40px;
+  box-sizing: border-box;
+}
+.btn {
+  width: 80px;
+  height: 40px;
+  background-color: black;
+  cursor: pointer;
+  color: white;
+  border: 0;
+  box-sizing: border-box;
+  margin-left: 10px;
+  border-radius: 2px;
 }
 </style>
