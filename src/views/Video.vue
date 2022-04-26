@@ -3,22 +3,21 @@
     <div class="framebox" style="width: 100%">
       <iframe
         style="width: 100%; aspect-ratio: 16/9"
-        :src="`https://www.youtube.com/embed/${this.$route.params.id}`"
+        :src="`https://www.youtube.com/embed/${route.params.id}`"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
-      <h1 class="title">{{ videoArr.title }}</h1>
-      <p></p>
+
+      <h1 class="title">{{ videoArr[0].snippet.title }}</h1>
+      <p>{{ videoArr[0].snippet.title }}</p>
       <div class="titlebox">
         <div class="thumbnail">
-          <img
-            :src="`http://img.youtube.com/vi/${this.$route.params.id}/2.jpg`"
-          />
+          <img :src="`http://img.youtube.com/vi/${route.params.id}/2.jpg`" />
         </div>
         <div class="titlename">
-          <p>{{ videoArr.channelTitle }}</p>
+          <p>{{ videoArr[0].snippet.channelTitle }}</p>
           <div></div>
         </div>
       </div>
@@ -55,42 +54,54 @@
 </template>
 
 <script>
-import axios from "axios";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 export default {
   name: "OneProjectVideo",
-  created() {
-    axios
-      .get(
-        `https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=snippet&maxResults=100&videoId=${this.$route.params.id}`
-      )
-      .then(({ data }) => {
-        // console.log(data.items[0].snippet, "response");
-        // console.log(data, "response");
-        console.log(data.items);
-        this.comment = data.items;
-        // console.log(data.items[0].snippet.topLevelComment.snippet);
-      })
-      .catch((error) => {
-        console.log(error, "error");
-      });
-    axios
-      .get(
-        `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=snippet&id=${this.$route.params.id}`
-      )
-      .then(({ data }) => {
-        console.log(data, "response");
-        this.videoArr = data.items[0].snippet;
-      })
-      .catch((error) => {
-        console.log(error, "error");
-      });
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+    store.dispatch("FETCH_COMMENT", route.params.id);
+    store.dispatch("FETCH_VIDEO", route.params.id);
+    const comment = computed(() => store.getters.fetchComment);
+    const videoArr = computed(() => store.getters.fetchVideo);
+    return { comment, route, videoArr };
   },
-  data() {
-    return {
-      videoArr: [],
-      comment: [],
-    };
-  },
+
+  // created() {
+  //   axios
+  //     .get(
+  //       `https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=snippet&maxResults=100&videoId=${this.$route.params.id}`
+  //     )
+  //     .then(({ data }) => {
+  //       // console.log(data.items[0].snippet, "response");
+  //       // console.log(data, "response");
+  //       console.log(data.items);
+  //       this.comment = data.items;
+  //       // console.log(data.items[0].snippet.topLevelComment.snippet);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error, "error");
+  //     });
+  //   axios
+  //     .get(
+  //       `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCHhaeNyuDZCCRrDzYVdCDwWpTmtee6IAY&part=snippet&id=${this.$route.params.id}`
+  //     )
+  //     .then(({ data }) => {
+  //       console.log(data, "response");
+  //       this.videoArr = data.items[0].snippet;
+  //     })
+  //     .catch((error) => {
+  //       console.log(error, "error");
+  //     });
+  // },
+  // data() {
+  //   return {
+  //     videoArr: [],
+  //     comment: [],
+  //   };
+  // },
 
   mounted() {},
 

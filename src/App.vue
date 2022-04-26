@@ -1,24 +1,37 @@
 <template>
   <div id="nav">
-    <Header v-if="$route.name !== 'login'" />
+    <Header v-if="$route.name !== 'login' && $route.name !== 'SingUp'" />
     <router-view />
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
+// import Vue from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "OneProjectApp",
-  created() {
+  setup() {
+    console.log("아녕하세요", sessionStorage.getItem("ACCESS_TOKEN"));
+
+    const router = useRouter();
     if (sessionStorage.getItem("ACCESS_TOKEN") === null) {
-      this.$router.push("/");
+      console.log("fd");
+      // console.log(sessionStorage.getItem("ACCESS_TOKEN"));
+      router.forward("/");
+      // router.push("/");
     }
   },
-  data() {
-    return {
-      isStatusOn: true,
-    };
-  },
+  // created() {
+  //   if (sessionStorage.getItem("ACCESS_TOKEN") === null) {
+  //     this.$router.push("/");
+  //   }
+  // },
+  // data() {
+  //   return {
+  //     isStatusOn: true,
+  //   };
+  // },
   components: { Header },
   mounted() {},
 

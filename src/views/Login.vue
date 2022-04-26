@@ -3,7 +3,7 @@
     <form action="" id="frm" @submit.prevent="loginVue" @keyup.enter="loginVue">
       <div class="loginbox">
         <p class="title">로그인</p>
-        <label class="check" v-text="text"></label>
+        <label class="check" v-text="form.text"></label>
         <div class="login_part">
           <input
             type="email"
@@ -24,7 +24,7 @@
         </div>
         <div class="form">
           <p>cotube 회원이 아닌가요? 지금 가입하세요.</p>
-          <router-link to="SingUp">
+          <router-link to="singup">
             <input type="button" value="회원가입" class="startbtn" />
           </router-link>
         </div>
@@ -37,53 +37,83 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+import { reactive } from "vue";
 import useUser from "../api/users/useUser.js";
 export default {
   name: "Login",
-  components: {},
-  created() {
-    // const { join } = useUser();
-    // join({
-    //   email: "rbgodsla@naver.com",
-    //   username: "괭이",
-    //   password: "111111",
-    // });
-  },
+
   setup() {
-    return {};
-  },
-  data() {
-    return {
-      check: false,
-      text: "",
-      form: {
-        id: "",
-        pass: "",
-        text: "",
-      },
+    const router = useRouter(); //*
+    const form = reactive({ id: "", pass: "", text: "" });
+
+    if (sessionStorage.getItem("ACCESS_TOKEN") !== null) {
+      router.push("home");
+    }
+    const loginVue = () => {
+      form.pass === "" || form.pass.length < 6
+        ? (form.text = "패스워드를 정확하게 입력하여주시길 바랍니다")
+        : loginCode();
     };
-  },
-  methods: {
-    kakaologin() {},
-    loginVue() {
-      this.form.pass === "" || this.form.pass.length < 6
-        ? (this.text = "패스워드를 정확하게 입력하여주시길 바랍니다")
-        : this.loginCode();
-    },
-    async loginCode() {
+    const loginCode = async () => {
       const { login } = useUser();
 
       const { ok, token } = await login({
-        email: this.form.id,
-        password: this.form.pass,
+        email: form.id,
+        password: form.pass,
       });
 
       if (!ok) return alert("아이디 정보가 없습니다");
 
       sessionStorage.setItem("ACCESS_TOKEN", token);
-      this.$router.replace("Home");
-    },
+      router.replace("/home");
+    };
+
+    return { form, loginVue, loginCode };
   },
+
+  // components: {},
+  // created() {
+  //   if (sessionStorage.getItem("ACCESS_TOKEN") !== null) {
+  //     this.$router.push("Home");
+  //   }
+  // const { join } = useUser();
+  // join({
+  //   email: "rbgodsla@naver.com",
+  //   username: "괭이",
+  //   password: "111111",
+  // });
+  // },
+  //   data() {
+  //     return {
+  //       form: {
+  //         id: "",
+  //         pass: "",
+  //         text: "",
+  //       },
+  //     };
+  //   },
+  //   methods: {
+  //     kakaologin() {},
+  //     loginVue() {
+  //       this.form.pass === "" || this.form.pass.length < 6
+  //         ? (this.text = "패스워드를 정확하게 입력하여주시길 바랍니다")
+  //         : this.loginCode();
+  //     },
+  //     async loginCode() {
+  //       const { login } = useUser();
+
+  //       const { ok, token } = await login({
+  //         email: this.form.id,
+  //         password: this.form.pass,
+  //       });
+
+  //       if (!ok) return alert("아이디 정보가 없습니다");
+
+  //       sessionStorage.setItem("ACCESS_TOKEN", token);
+  //       this.$router.replace("/home");
+  //     },
+  //   },
 };
 </script>
 <style scoped>

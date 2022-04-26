@@ -8,16 +8,12 @@
 import HomeView from "../components/Homeview.vue";
 export default {
   name: "Home",
-  created() {
-    if (sessionStorage.getItem("ACCESS_TOKEN") === null) {
-      this.$router.push("/");
-    }
-  },
-  data() {
-    return {};
-  },
   components: {
     HomeView,
+  },
+  created() {},
+  data() {
+    return {};
   },
   computed: {},
   mounted() {},

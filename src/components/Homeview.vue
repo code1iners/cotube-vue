@@ -1,15 +1,19 @@
 <template>
   <div class="vidie_box">
+    <!-- {{ fetch }} -->
     <div class="videomini" v-for="arr in fetchHome" :key="arr">
       <router-link :to="`/video/${arr.id.videoId}`">
         <div class="topbox">
           <img :src="arr.snippet.thumbnails.medium.url" />
         </div>
         <div class="bottombox">
-          <div class="imgbox">
-            <img
-              :src="`https://img.youtube.com/vi/${arr.id.videoId}/mqdefault.jpg`"
-            />
+          <div class="imgbigbox">
+            <div class="imgbox">
+              <img
+                class="imgscr"
+                :src="`https://img.youtube.com/vi/${arr.id.videoId}/mqdefault.jpg`"
+              />
+            </div>
           </div>
           <div class="titlebox">
             <p class="bigtitle">
@@ -24,25 +28,35 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "OneProjectHomeview",
-  computed: {
-    ...mapGetters(["fetchHome"]),
-  },
-  created() {
-    if (this.$store.state.home == "") {
-      // video파트에서 검색을 할수있게 하려고 조건을검
-      this.$store.dispatch("FETCH_HOME_VIEW");
+  setup() {
+    const store = useStore();
+    const fetchHome = computed(() => store.getters.fetchHome);
+    if (store.state.home == "") {
+      //       // video파트에서 검색을 할수있게 하려고 조건을검
+      store.dispatch("FETCH_HOME_VIEW");
     }
+    return { fetchHome };
   },
+  // computed: {
+  //     ...mapGetters(["fetchHome"]),
+  //   },
+  //   created() {
+  //     if (this.$store.state.home == "") {
+  //       // video파트에서 검색을 할수있게 하려고 조건을검
+  //       this.$store.dispatch("FETCH_HOME_VIEW");
+  //     }
+  //   },
 
-  data() {
-    return {};
-  },
-  watch: {},
+  // data() {
+  //   return {};
+  // },
+  // watch: {},
 
-  methods: {},
+  // methods: {},
 };
 </script>
 
@@ -86,6 +100,8 @@ export default {
 .titlebox {
   display: flex;
   flex-flow: column wrap;
+  padding-left: 5px;
+  box-sizing: border-box;
 }
 .title {
   font-size: 5px;
@@ -93,22 +109,22 @@ export default {
   text-align: left;
   color: #ccc;
 }
-.imgbox {
-  width: 40px;
-  border-radius: 100px;
-  overflow: hidden;
-  position: relative;
+.imgbigbox {
+  width: 30%;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.imgbox > img {
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  position: absolute;
+.imgbox {
   width: 30px;
   height: 30px;
+}
+.imgscr {
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
+  margin-top: -20px;
   object-fit: cover;
 }
 a {

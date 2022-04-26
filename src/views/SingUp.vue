@@ -3,7 +3,7 @@
     <form @submit.prevent="SingUp">
       <div class="singup">
         <p class="title">간편회원가입</p>
-        <label class="text" v-text="text"></label>
+        <label class="text" v-text="form.text"></label>
         <div>
           <p>이메일</p>
           <input type="email" v-model="form.id" placeholder="@naver.com" />
@@ -35,45 +35,77 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+import { reactive } from "vue";
 import useUser from "../api/users/useUser.js";
 export default {
   name: "OneProjectSingup",
+  setup() {
+    const form = reactive({ id: "", password: "", password2: "", text: "" });
+    const router = useRouter(); //*
 
-  data() {
-    return {
-      text: "",
-      form: {
-        id: "",
-        password: "",
-        password2: "",
-      },
-    };
-  },
-
-  mounted() {},
-
-  methods: {
-    SingUp() {
-      if (this.form.password.length < 6) {
-        this.text = "비밀번호 6 자리 이상 입력바랍니다";
-      } else if (this.form.password2 != this.form.password) {
-        this.text = "동일한 패스워드를 입력바랍니다";
+    const SingUp = () => {
+      if (form.password.length < 6) {
+        form.text = "비밀번호 6 자리 이상 입력바랍니다";
+      } else if (form.password2 != form.password) {
+        form.text = "동일한 패스워드를 입력바랍니다";
       } else {
-        this.Join();
+        Join();
       }
-    },
-    async Join() {
+    };
+
+    const Join = async () => {
       const { join } = useUser();
       const { ok } = await join({
-        email: this.form.id,
-        username: this.form.id.split("@")[1],
-        password: this.form.password,
+        email: form.id,
+        username: form.id.split("@")[1],
+        password: form.password,
       });
-      if (!ok) return (this.text = "중복된 아이디 입니다");
+      if (!ok) return (form.text = "중복된 아이디 입니다");
       alert("가입이 완료되었습니다");
-      this.$router.push("/");
-    },
+      router.push("/");
+    };
+
+    return {
+      form,
+      SingUp,
+    };
   },
+  // data() {
+  //   return {
+  //     form: {
+  //       id: "",
+  //       password: "",
+  //       password2: "",
+  //       text: "",
+  //     },
+  //   };
+  // },
+
+  // mounted() {},
+
+  // methods: {
+  //   SingUp() {
+  //     if (this.form.password.length < 6) {
+  //       this.text = "비밀번호 6 자리 이상 입력바랍니다";
+  //     } else if (this.form.password2 != this.form.password) {
+  //       this.text = "동일한 패스워드를 입력바랍니다";
+  //     } else {
+  //       this.Join();
+  //     }
+  //   },
+  //   async Join() {
+  //     const { join } = useUser();
+  //     const { ok } = await join({
+  //       email: this.form.id,
+  //       username: this.form.id.split("@")[1],
+  //       password: this.form.password,
+  //     });
+  //     if (!ok) return (this.text = "중복된 아이디 입니다");
+  //     alert("가입이 완료되었습니다");
+  //     this.$router.push("/");
+  //   },
+  // },
 };
 </script>
 

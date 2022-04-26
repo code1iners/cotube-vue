@@ -4,34 +4,58 @@
       <li @click="logout">로그아웃</li>
     </ul>
     <div class="inputbox">
-      <input type="text" v-model="video_val" @keyup.enter="search" />
+      <input type="text" v-model="form.video_val" @keyup.enter="search" />
       <input type="button" class="btn" value="검색" @click="search" />
     </div>
   </div>
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+import { useStore } from "vuex"; //*
+import { reactive } from "@vue/reactivity";
 export default {
   name: "OneProjectHeader",
+  setup() {
+    const store = useStore();
+    const router = useRouter();
 
-  data() {
-    return {
+    const form = reactive({
       video_val: "",
+    });
+
+    const logout = async () => {
+      sessionStorage.removeItem("ACCESS_TOKEN");
+      // router.push("/");
+      router.go("/");
+    };
+    const search = () => {
+      store.dispatch(`FETCH_HOME_VIEW`, form.video_val);
+    };
+    return {
+      form,
+      logout,
+      search,
     };
   },
 
-  mounted() {},
+  // data() {
+  //   return {
+  //     video_val: "",
+  //   };
+  // },
 
-  methods: {
-    logout() {
-      sessionStorage.removeItem("ACCESS_TOKEN");
-      this.$router.push("/");
-    },
-    search() {
-      this.$router.push("/home");
-      this.$store.dispatch(`FETCH_HOME_VIEW`, this.video_val);
-    },
-  },
+  // mounted() {},
+
+  // methods: {
+  //   logout() {
+  //     sessionStorage.removeItem("ACCESS_TOKEN");
+  //     this.$router.push("/");
+  //   },
+  //   search() {
+  //     this.$store.dispatch(`FETCH_HOME_VIEW`, this.video_val);
+  //   },
+  // },
 };
 </script>
 
@@ -69,7 +93,7 @@ export default {
   justify-content: center;
 }
 input {
-  width: 35%;
+  width: 55%;
   height: 40px;
   box-sizing: border-box;
 }
