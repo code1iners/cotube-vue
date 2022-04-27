@@ -57,9 +57,12 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import { backGuard } from "../api/customfunction.js";
 export default {
   name: "OneProjectVideo",
   setup() {
+    backGuard();
+
     const store = useStore();
     const route = useRoute();
     store.dispatch("FETCH_COMMENT", route.params.id);
@@ -126,7 +129,6 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  padding-bottom: 20px;
   border-bottom: 2px solid #ccc;
 }
 .titlebox {

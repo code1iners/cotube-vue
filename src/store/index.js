@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+// import { useRouter } from "vue-router";
 import {
   fetchInfoList,
   fetchHomeView,
@@ -31,8 +32,8 @@ export default createStore({
       state.user = data;
     },
     SET_home(state, data) {
-      // this.$router.push("/home");
       state.home = data;
+      // useRouter().push("/home");
     },
     SET_comment(state, data) {
       state.comment = data;

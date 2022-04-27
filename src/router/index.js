@@ -40,13 +40,12 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  beforeEach: (to, from, next) => {
-    console.log("시발");
-    if (sessionStorage.getItem("ACCESS_TOKEN") !== null) {
-      return next();
-    }
-    return false;
-  },
+  // beforeEach: (to, from, next) => {
+  //   if (sessionStorage.getItem("ACCESS_TOKEN") !== null) {
+  //     return next();
+  //   }
+  //   return false;
+  // },
 });
 
 export default router;

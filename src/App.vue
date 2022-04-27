@@ -12,14 +12,10 @@ import { useRouter } from "vue-router";
 export default {
   name: "OneProjectApp",
   setup() {
-    console.log("아녕하세요", sessionStorage.getItem("ACCESS_TOKEN"));
-
     const router = useRouter();
     if (sessionStorage.getItem("ACCESS_TOKEN") === null) {
-      console.log("fd");
-      // console.log(sessionStorage.getItem("ACCESS_TOKEN"));
-      router.forward("/");
-      // router.push("/");
+      router.push("/");
+      // url 막기
     }
   },
   // created() {

@@ -6,23 +6,16 @@
 
 <script>
 import HomeView from "../components/Homeview.vue";
+import { backGuard } from "../api/customfunction.js";
 export default {
   name: "Home",
   components: {
     HomeView,
   },
-  created() {},
-  data() {
-    return {};
+  setup() {
+    backGuard();
   },
-  computed: {},
-  mounted() {},
-  methods: {},
 };
 </script>
 
-<style scoped>
-.homeVue {
-  padding: 30px;
-}
-</style>
+<style scoped></style>

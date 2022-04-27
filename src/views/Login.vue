@@ -30,8 +30,8 @@
         </div>
       </div>
     </form>
-    <video muted autoplay loop class="mpplayer">
-      <source src="../sauce/event.mp4.mp4" />
+    <video muted autoplay loop playsinline class="mpplayer">
+      <source src="../sauce/event.mp4.mp4" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -127,8 +127,9 @@ export default {
   font-weight: 800;
 }
 .loginbox {
-  width: 450px;
-  height: 670px;
+  /* width: 450px;
+  height: 670px; */
+  width: 80%;
   background: rgba(0, 0, 0, 0.8);
   position: absolute;
   top: 50px;

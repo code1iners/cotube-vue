@@ -27,10 +27,12 @@ export default {
     const logout = async () => {
       sessionStorage.removeItem("ACCESS_TOKEN");
       // router.push("/");
-      router.go("/");
+      // router.go("/");
+      router.replace("/");
     };
     const search = () => {
       store.dispatch(`FETCH_HOME_VIEW`, form.video_val);
+      router.push("/home");
     };
     return {
       form,

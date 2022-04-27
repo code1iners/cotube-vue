@@ -36,7 +36,7 @@ export default {
     const store = useStore();
     const fetchHome = computed(() => store.getters.fetchHome);
     if (store.state.home == "") {
-      //       // video파트에서 검색을 할수있게 하려고 조건을검
+      //       // video파트에서 검색을 할수있`게 하려고 조건을검
       store.dispatch("FETCH_HOME_VIEW");
     }
     return { fetchHome };
@@ -70,13 +70,12 @@ export default {
   flex-flow: row wrap;
 }
 .videomini {
-  width: 20.9%;
   display: flex;
   flex-flow: column nowrap;
   padding: 20px;
 }
 .bigtitle {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   text-overflow: ellipsis;
   white-space: normal;
@@ -104,13 +103,12 @@ export default {
   box-sizing: border-box;
 }
 .title {
-  font-size: 5px;
+  font-size: 10px;
   font-weight: 800;
   text-align: left;
   color: #ccc;
 }
 .imgbigbox {
-  width: 30%;
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -124,11 +122,14 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  margin-top: -20px;
   object-fit: cover;
 }
 a {
   text-decoration: none;
   color: black;
+}
+p {
+  margin: 0;
+  padding: 0;
 }
 </style>
