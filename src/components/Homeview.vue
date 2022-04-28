@@ -73,6 +73,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   padding: 20px;
+  box-sizing: border-box;
 }
 .bigtitle {
   font-size: 14px;
@@ -86,6 +87,7 @@ export default {
 }
 .topbox {
   width: 100%;
+  margin-bottom: 10px;
 }
 .topbox > img {
   width: 100%;
@@ -112,7 +114,7 @@ export default {
   border-radius: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .imgbox {
   width: 30px;

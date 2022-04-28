@@ -10,13 +10,13 @@ async function fetchInfoList(id) {
 async function fetchHomeView(id) {
   if (id == undefined || id == "") {
     const res = await axiosInstance({
-      url: `search?key=${process.env.VUE_APP_KEY_API}&part=id,snippet&q=오킹&type=video&maxResults=1`,
+      url: `search?key=${process.env.VUE_APP_KEY_API}&part=id,snippet&q=오킹&type=video&maxResults=10`,
     });
     console.log(res);
     return res;
   } else {
     const res = await axiosInstance({
-      url: `search?key=${process.env.VUE_APP_KEY_API}&part=id,snippet&q=${id}&type=video&maxResults=1`,
+      url: `search?key=${process.env.VUE_APP_KEY_API}&part=id,snippet&q=${id}&type=video&maxResults=10`,
     });
     console.log(res);
     return res;
